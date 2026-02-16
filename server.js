@@ -18,6 +18,19 @@ app.use("/api/appointments", appointmentRoutes);
 
 // DB Connect
 connectDB();
+// CORS Configuration
+app.use(cors({
+  origin: [
+    "https://brahmiayurveda.com",
+    "http://localhost:5173",  // For local development
+    "http://localhost:3000"   // Alternative local port
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  exposedHeaders: ["Authorization"],
+  maxAge: 86400 // 24 hours
+}));
 
 
 export default app;
