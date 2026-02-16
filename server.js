@@ -1,5 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
@@ -9,28 +8,31 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// Routes
-app.use("/api/appointments", appointmentRoutes);
-
-// DB Connect
-connectDB();
-// CORS Configuration
+// ================= CORS FIRST =================
 app.use(cors({
   origin: [
     "https://brahmiayurveda.com",
-    "http://localhost:5173",  // For local development
-    "http://localhost:3000"   // Alternative local port
+    "http://localhost:5173",
+    "http://localhost:3000"
   ],
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  exposedHeaders: ["Authorization"],
-  maxAge: 86400 // 24 hours
+  credentials: true
 }));
 
+// Handle preflight requests
+app.options("*", cors());
+
+// ================= MIDDLEWARE =================
+app.use(express.json());
+
+// ================= DB CONNECT =================
+connectDB();
+
+// ================= ROUTES =================
+app.use("/api/appointments", appointmentRoutes);
+
+// ================= TEST ROUTE =================
+app.get("/", (req, res) => {
+  res.json({ message: "API Running" });
+});
 
 export default app;
