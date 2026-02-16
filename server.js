@@ -15,7 +15,10 @@ app.use(cors({
     "http://localhost:5173",
     "http://localhost:3000"
   ],
-  credentials: true
+  credentials: true,methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  exposedHeaders: ["Authorization"],
+  maxAge: 86400 
 }));
 
 // Handle preflight requests
