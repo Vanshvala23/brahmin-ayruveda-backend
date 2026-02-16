@@ -8,26 +8,26 @@ dotenv.config();
 
 const app = express();
 
-// ✅ SIMPLE VERCEL-SAFE CORS
+// ===== CORS FIRST =====
 app.use(cors({
-  origin: true, // allow all origins (safe for APIs)
-  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"],
+  origin: [
+    "https://brahmiayurveda.com",
+    "http://localhost:5173",
+    "http://localhost:3000"
+  ],
+  credentials: true
 }));
-
-// ✅ Always respond OK to preflight
-app.options("*", (req, res) => {
-  res.sendStatus(200);
-});
 
 app.use(express.json());
 
-connectDB();
-
+// ===== ROUTES =====
 app.use("/api/appointments", appointmentRoutes);
 
-app.get("/", (req,res)=>{
-  res.json({message:"API Running"});
+app.get("/", (req, res) => {
+  res.json({ message: "API Running" });
 });
+
+// ===== CONNECT DB ONCE =====
+connectDB();
 
 export default app;
