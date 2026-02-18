@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js"
 import connectDB from "./config/db.js";
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(express.json());
 
 // ===== ROUTES =====
 app.use("/api/appointments", appointmentRoutes);
+app.use("/api/contact",contactRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "API Running" });
