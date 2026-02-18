@@ -3,7 +3,7 @@ import {
   createContact,
   getAllContacts,
   deleteContact
-} from "../controller/contactController.js";
+} from "../controller/contactController";
 
 const router = express.Router();
 
